@@ -1,0 +1,46 @@
+services:
+  # X-Coder Store Web Service
+  - type: web
+    name: x-coder-store
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    
+    # Environment variables
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    
+    # Auto-deploy from main branch
+    autoDeploy: true
+    
+    # Branch configuration
+    branch: main
+    
+    # Runtime
+    runtime: node
+    
+    # Node version
+    nodeVersion: 18
+    
+    # Build cache
+    buildFilter:
+      paths:
+        - package.json
+        - package-lock.json
+        - server.js
+        - index.html
+        - css/**
+        - js/**
+        - images/**
+
+  # Custom domain configuration (uncomment and configure as needed)
+  # - type: web
+  #   name: x-coder-store-custom
+  #   domains:
+  #     - your-custom-domain.com
+  #     - www.your-custom-domain.com
